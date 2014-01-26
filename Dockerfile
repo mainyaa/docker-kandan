@@ -32,7 +32,7 @@ run cd /tmp/ruby-2.0.0-p247 && ./configure --disable-install-doc && make install
 run gem update --system
 
 run rm -r /tmp/ruby-2.0.0-p247
-run gem install bundler
+run gem install bundler --no-rdoc --no-ri
 
 
 #Install node.js
@@ -46,12 +46,16 @@ run rm -rf /tmp/node-v0.10.5
 run node -v
 
 # install kandan
-run apt-get install -y git libxml2-dev libpq-dev libsqlite3-dev
+run apt-get install -y git libxml2-dev libmysqlclient-dev libmysql-ruby
 run git clone https://github.com/kandanapp/kandan/ /kandan
+add . /docker
+run cp /docker/Gemfile /kandan/Gemfile
+run cp /docker/database.yml /kandan/config/database.yml
 run (cd /kandan/ ; bundle install)
+run (cd /kandan/ ; bundle exec rake assets:precompile)
 run (cd /kandan/ ; bundle exec rake db:create db:migrate kandan:bootstrap)
 
 expose 80 8080 3000
-add run.sh /usr/bin/kandan
+run cp /docker/run.sh /usr/bin/kandan
 entrypoint ["/usr/bin/kandan"]
 

@@ -1,0 +1,9 @@
+development:
+  adapter: mysql2
+  host: 173.194.110.247
+  database: kandan_development
+  pool: 5
+  timeout: 5000
+  # You might need these depending on your Postgres auth setup.
+  username: root
+  password: kandan
