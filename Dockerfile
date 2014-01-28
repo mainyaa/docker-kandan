@@ -48,10 +48,11 @@ run node -v
 # install kandan
 run apt-get install -y git libxml2-dev libmysqlclient-dev libmysql-ruby
 run git clone https://github.com/kandanapp/kandan/ /kandan
+run gem source --add http://production.cf.rubygems.org
 add . /docker
 run cp /docker/Gemfile /kandan/Gemfile
-run cp /docker/database.yml /kandan/config/database.yml
 run (cd /kandan/ ; bundle install)
+run cp /docker/database.yml /kandan/config/database.yml
 run (cd /kandan/ ; bundle exec rake assets:precompile)
 run (cd /kandan/ ; bundle exec rake db:create db:migrate kandan:bootstrap)
 

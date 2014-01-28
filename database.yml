@@ -1,9 +1,22 @@
+
+production:
+  adapter: mysql2
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || '3306' %>
+  database: kandan_production
+  pool: 5
+  timeout: 5000
+  # You might need these depending on your Postgres auth setup.
+  username: <%= ENV['DATABASE_USERNAME'] || 'root' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || '' %>
+
 development:
   adapter: mysql2
-  host: 173.194.110.247
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: <%= ENV['DATABASE_PORT'] || '3306' %>
   database: kandan_development
   pool: 5
   timeout: 5000
   # You might need these depending on your Postgres auth setup.
-  username: root
-  password: kandan
+  username: <%= ENV['DATABASE_USERNAME'] || 'root' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || '' %>
